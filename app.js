@@ -7,6 +7,7 @@ app.get("/", (req, res) => {
   res.send("Task Manager API With Node JS Express and MongoDB");
 });
 
+// Route Structure and Details
 // app.get("/api/v1/tasks"); // get all the tasks
 // app.post("/api/v1/tasks"); // create a new task
 // app.get("/api/v1/tasks/:id"); // get single task
