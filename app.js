@@ -2,10 +2,17 @@ const express = require("express");
 const app = express();
 const PORT = 5000;
 
+const tasksRoute = require("./routes/tasks.js");
+
+// middleware
+app.use(express.json());
+
 // routes
 app.get("/", (req, res) => {
   res.send("Task Manager API With Node JS Express and MongoDB");
 });
+
+app.use("/api/v1/tasks", tasksRoute);
 
 // Route Structure and Details
 // app.get("/api/v1/tasks"); // get all the tasks
