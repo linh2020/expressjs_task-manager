@@ -36,8 +36,25 @@ const getTask = async (req, res) => {
   }
 };
 
-const updateTask = (req, res) => {
-  res.status(200).send("Update task");
+const updateTask = async (req, res) => {
+  try {
+    const { id: taskID } = req.params;
+    const updatedTask = await Task.findOneAndUpdate({ _id: taskID }, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!updatedTask) {
+      return res
+        .status(404)
+        .json({ message: `The task ID does not exist ${taskID}` });
+    }
+
+    res.status(200).json(updatedTask);
+    // .json({ message: `The task has been updated successfully ${taskID}` });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 const deleteTask = async (req, res) => {
