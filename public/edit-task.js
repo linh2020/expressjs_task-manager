@@ -11,20 +11,49 @@ let tempName;
 
 const showTask = async () => {
   try {
-    const {
-      data: { task },
-    } = await axios.get(`/api/v1/tasks/${id}`);
-    console.log(data);
+    const { data: task } = await axios.get(`/api/v1/tasks/${id}`);
+    console.log(task);
 
     const { _id: taskID, completed, name } = task;
 
     taskIDDOM.textContent = taskID;
     taskNameDOM.value = name;
     tempName = name;
-    if (completed) {
-      taskCompletedDOM.checked = true;
-    }
+    if (completed) taskCompletedDOM.checked = true;
   } catch (error) {
     console.log(error);
   }
 };
+
+showTask();
+
+$(document).ready(function () {
+  $(editFormDOM).submit(async function (e) {
+    editBtnDOM.textContent = "Loading...";
+    e.preventDefault();
+    try {
+      const taskName = taskNameDOM.value;
+      const taskCompleted = taskCompletedDOM.checked;
+
+      const { data: task } = await axios.patch(`/api/v1/tasks/${id}`, {
+        name: taskName,
+        completed: taskCompleted,
+      });
+      console.log(task);
+
+      formAlertDOM.style.display = "block";
+      formAlertDOM.textContent = `Success, edited task`;
+      formAlertDOM.classList.add("text-success");
+    } catch (error) {
+      console.log(error);
+      taskNameDOM.value = tempName;
+      formAlertDOM.style.display = "block";
+      formAlertDOM.innerHTML = `error, please try again`;
+    }
+    editBtnDOM.textContent = "Edit";
+    setTimeout(() => {
+      formAlertDOM.style.display = "none";
+      formAlertDOM.classList.remove("text-success");
+    }, 3000);
+  });
+});
