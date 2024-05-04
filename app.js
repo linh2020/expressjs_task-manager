@@ -9,13 +9,10 @@ const connectDB = require("./db/connect.js");
 require("dotenv").config();
 
 // middleware
+app.use(express.static("./public"));
 app.use(express.json());
 
 // routes
-app.get("/", (req, res) => {
-  res.send("Task Manager API With Node JS Express and MongoDB");
-});
-
 app.use("/api/v1/tasks", tasksRoute);
 
 // Route Structure and Details
