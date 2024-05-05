@@ -5,8 +5,9 @@ const editFormDOM = document.querySelector(".single-task-form");
 const editBtnDOM = document.querySelector(".task-edit-btn");
 const formAlertDOM = document.querySelector(".form-alert");
 
-const params = window.location.search;
-const id = new URLSearchParams(params).get("id");
+// Current URL: https://example.com/page?id=123&name=John
+const params = window.location.search; // '?id=123&name=John'
+const id = new URLSearchParams(params).get("id"); // '123'
 let tempName;
 
 const showTask = async () => {
