@@ -1,12 +1,13 @@
 const express = require("express");
 const app = express();
+
+require("dotenv").config();
 const PORT = process.env.PORT || 5000;
 
 const tasksRoute = require("./routes/tasks.js");
 
 // Database Connection
 const connectDB = require("./db/connect.js");
-require("dotenv").config();
 
 const notFound = require("./middleware/not-found.js");
 const errorHandlerMiddleware = require("./middleware/error-handler.js");
