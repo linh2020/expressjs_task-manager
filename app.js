@@ -8,12 +8,16 @@ const tasksRoute = require("./routes/tasks.js");
 const connectDB = require("./db/connect.js");
 require("dotenv").config();
 
+const notFound = require("./middleware/not-found.js");
+
 // middleware
 app.use(express.static("./public"));
 app.use(express.json());
 
 // routes
 app.use("/api/v1/tasks", tasksRoute);
+
+app.use(notFound);
 
 // Route Structure and Details
 // app.get("/api/v1/tasks"); // get all the tasks
